@@ -1,0 +1,7 @@
+# Automatically generated on {{ timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
+{% for index in range(number_of_jobs) %}
+JOB job{{ index }} node
+VARS job{{ index }} job_name="job{{ index }}"
+{% endfor %}
+RETRY ALL_NODES 3
+

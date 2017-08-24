@@ -1,0 +1,27 @@
+# Automatically generated on {{ timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
+universe = vanilla
+should_transfer_files = YES
+getenv = true
+
+executable = run
+arguments = $(job_name).pklz
+{% if input_files is none %}
+transfer_input_files = jobs/$(job_name).pklz
+{% else %}
+transfer_input_files = jobs/$(job_name).pklz,{{ input_files|join(',') }}
+{% endif %}
+{% if output_files is none %}
+transfer_output_files = ""
+{% else %}
+transfer_output_files = {{ output_files|join(',') }}
+{% endif %}
+output = logs/$(job_name).out
+error = logs/$(job_name).err
+log = logs/$(job_name).log
+
+{% for command, value in commands.iteritems() %}
+{{ command }} = {{ value }}
+{% endfor %}
+
+queue
+
