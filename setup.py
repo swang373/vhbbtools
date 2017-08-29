@@ -21,9 +21,7 @@ setup(
     author_email='sean.jiun.wang@gmail.com',
     license='MIT',
     packages=find_packages(),
-    package_data={
-        'htcondor': ['templates'],
-    },
+    include_package_data=True,
     python_requires='>=2.7, <=3',
     install_requires=[
         'appdirs',
