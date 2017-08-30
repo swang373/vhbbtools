@@ -7,7 +7,7 @@ jobs using the HTCondor distributed computing framework.
 """
 
 # Core classes
-from .core import HTCondorized
+from .htcondorized import HTCondorized
 
 # Decorators
 from .decorators import htcondorize

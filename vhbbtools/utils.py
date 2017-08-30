@@ -7,7 +7,7 @@ import dill
 
 def safe_makedirs(path):
     """Recursively create a directory without race conditions.
-    
+
     This borrows from solutions to these Stack Overflow questions:
         * http://stackoverflow.com/a/5032238
         * http://stackoverflow.com/a/600612

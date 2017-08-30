@@ -9,6 +9,7 @@ def main():
     # Create a logger in case the job utilizes the logging module.
     logging.basicConfig(
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        datefmt='%a %b %d %H:%M:%S %Z %Y',
         level=logging.DEBUG,
     )
     logger = logging.getLogger(__file__)

@@ -105,34 +105,24 @@ class HTCondorized(object):
         logdir = os.path.join(dagdir, 'logs')
         safe_makedirs(jobdir)
         safe_makedirs(logdir)
-        # Serialize the jobs and create a copy of the exectuable used to
-        # deserialize and run them.
-        number_of_jobs = self._serialize_jobs(jobdir)
-        executable = pkg_resources.resource_filename(
-            package_or_requirement='vhbbtools',
-            resource_name='htcondor/templates/run',
-        )
-        shutil.copy(executable, dagdir)
-        # Generate the node submit description file.
-        node_template = self._templates.get_template('node_submit_description')
-        node_submit_description = node_template.render(
-            timestamp=datetime.datetime.now(),
-            input_files=self.input_files,
-            output_files=self.output_files,
-            commands=commands,
-        )
-        node_path = os.path.join(dagdir, 'node')
-        with open(node_path, 'w') as f:
-            f.write(node_submit_description)
-        # Generate the DAG input file.
-        dag_template = self._templates.get_template('dag_input_file')
-        dag_input_file = dag_template.render(
-            timestamp=datetime.datetime.now(),
-            number_of_jobs=number_of_jobs,
-        )
+        # Serialize the jobs and generate the job submission files.
+        context = {
+            'timestamp': datetime.datetime.now(),
+            'number_of_jobs': self._serialize_jobs(jobdir),
+            'input_files': self.input_files,
+            'output_files': self.output_files,
+            'commands': commands,
+            'environ': os.environ,
+        }
         dag_path = os.path.join(dagdir, 'dag')
-        with open(dag_path, 'w') as f:
-            f.write(dag_input_file)
+        self._generate_from_template('dag_input_file', dag_path, context)
+        self._generate_from_template('node_submit_description', os.path.join(dagdir, 'node'), context)
+        self._generate_from_template('worker.sh', os.path.join(dagdir, 'worker.sh'), context)
+        run_script = pkg_resources.resource_filename(
+            package_or_requirement='vhbbtools',
+            resource_name='htcondor/templates/run.py',
+        )
+        shutil.copy(run_script, dagdir)
         # Unless otherwise directed, submit the DAG input file to DAGMan.
         if no_submit:
             LOGGER.info('HTCondor DAG input file generated but not submitted: %s', dag_path)
@@ -161,9 +151,34 @@ class HTCondorized(object):
         number_of_jobs = len(self._jobs)
         for i, (args, kwargs) in enumerate(self._jobs):
             save_pkl(
-                os.path.join(jobdir, 'job{!s}.pklz'.format(i)),
-                functools.partial(self.func, *args, **kwargs),
+                path=os.path.join(jobdir, 'job{!s}.pklz'.format(i)),
+                obj=functools.partial(self.func, *args, **kwargs),
             )
         del self._jobs[:]
         return number_of_jobs
+
+    def _generate_from_template(self, name, path, context):
+        """Generate a job submission file by rendering its template.
+
+        Each job submission file has a corresponding template with variables
+        that are rendered using the job submission arguments and environment.
+
+        Parameters
+        ----------
+        name : str
+            The name of the template. The available templates are:
+                * dag_input_file
+                * node_submit_description
+                * worker.sh
+                * run.py
+        path : path
+            The output file path.
+        context : dict
+            The mapping between job submission arguments and environment
+            variables to the names of their corresponding template variables.
+
+        """
+        template = self._templates.get_template(name)
+        with open(path, 'w') as f:
+            f.write(template.render(context))
 

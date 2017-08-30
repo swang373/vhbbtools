@@ -1,4 +1,4 @@
-from .core import HTCondorized
+from .htcondorized import HTCondorized
 
 
 def htcondorize(input_files=[], output_files=[]):

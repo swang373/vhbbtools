@@ -4,11 +4,11 @@ import re
 from setuptools import setup, find_packages
 
 
-_version_re = re.compile(r'__version__\s+=\s+(.*)')
+VERSION_RE = re.compile(r'__version__\s+=\s+(.*)')
 
 
 with open('vhbbtools/__init__.py', 'rb') as f:
-    version = str(ast.literal_eval(_version_re.search(f.read().decode('utf-8')).group(1)))
+    version = str(ast.literal_eval(VERSION_RE.search(f.read().decode('utf-8')).group(1)))
 
 
 setup(
@@ -22,7 +22,7 @@ setup(
     license='MIT',
     packages=find_packages(),
     include_package_data=True,
-    python_requires='>=2.7, <=3',
+    python_requires='>=2.7, <3',
     install_requires=[
         'appdirs',
         'dill',
