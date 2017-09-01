@@ -1,4 +1,4 @@
-# Automatically generated on {{ timestamp.strftime('%a %b %d %H:%M:%S %Z %Y') }}
+# Automatically generated on {{ timestamp }}
 universe = vanilla
 should_transfer_files = YES
 

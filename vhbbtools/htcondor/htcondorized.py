@@ -1,9 +1,9 @@
-import datetime
 import functools
 import logging
 import os
 import shutil
 import subprocess
+import time
 
 import appdirs
 import jinja2
@@ -98,7 +98,7 @@ class HTCondorized(object):
         """
         # Create the directory tree for the job submission files.
         if not name:
-            name = '{:%Y%m%d_%H%M%S}'.format(datetime.datetime.now())
+            name = time.strftime('%Y%m%d_%H%M%S')
         user_data_dir = appdirs.user_data_dir(appname='vhbbtools')
         dagdir = os.path.join(user_data_dir, 'dags', self.func.__name__.lower(), name)
         jobdir = os.path.join(dagdir, 'jobs')
@@ -107,7 +107,7 @@ class HTCondorized(object):
         safe_makedirs(logdir)
         # Serialize the jobs and generate the job submission files.
         context = {
-            'timestamp': datetime.datetime.now(),
+            'timestamp': time.strftime('%a %b %d %H:%M:%S %Z %Y'),
             'number_of_jobs': self._serialize_jobs(jobdir),
             'input_files': self.input_files,
             'output_files': self.output_files,

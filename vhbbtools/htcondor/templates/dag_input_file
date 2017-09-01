@@ -1,4 +1,4 @@
-# Automatically generated on {{ timestamp.strftime('%a %b %d %H:%M:%S %Z %Y') }}
+# Automatically generated on {{ timestamp }}
 {% for i in range(number_of_jobs) %}
 JOB job{{ i }} node
 VARS job{{ i }} job="job{{ i }}"

@@ -16,7 +16,7 @@ setup(
     version=version,
     description='A Python package for CMS physics analyses using VHiggsBB ntuples.',
     url='https://github.com/swang373/vhbbtools',
-    download_url='https://github.com/swang373/vhbbtools/tarball/{}'.format(version),
+    download_url='https://github.com/swang373/vhbbtools/tarball/{0}'.format(version),
     author='Sean-Jiun Wang',
     author_email='sean.jiun.wang@gmail.com',
     license='MIT',
