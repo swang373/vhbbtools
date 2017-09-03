@@ -22,14 +22,14 @@ class Ntuple(ROOT.TChain):
 
     Parameters
     ----------
-    paths : list of paths
+    paths : paths
         The paths of the VHiggsBB ntuples.
     tree_name : str, optional
         The name of the TTree within the ntuples. The default is "tree".
 
     """
-    def __init__(self, paths, tree_name='tree'):
-        super(Ntuple, self).__init__(tree_name)
+    def __init__(self, *paths, **kwargs):
+        super(Ntuple, self).__init__(kwargs.get('tree_name', 'tree'))
         self.paths = paths
         # TODO: Add additional parameters for preselection, overall weight,
         # and per-event weights.
