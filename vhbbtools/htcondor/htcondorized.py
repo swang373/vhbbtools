@@ -51,6 +51,14 @@ class HTCondorized(object):
         """Forward calls to the wrapped callable."""
         self.func(*args, **kwargs)
 
+    def __repr__(self):
+        return '{0}(func=\'{1}\', input_files=\'{2}\', output_files=\'{3}\')'.format(
+            self.__class__.__name__,
+            self.func,
+            self.input_files,
+            self.output_files,
+        )
+
     def queue(self, *args, **kwargs):
         """Queue a call for submission as an HTCondor job.
 
