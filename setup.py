@@ -25,8 +25,10 @@ setup(
     python_requires='>=2.7, <3',
     install_requires=[
         'appdirs',
+        'contextlib2',
         'dill',
         'jinja2',
+        'rootpy',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
