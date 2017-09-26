@@ -1,5 +1,6 @@
-Apache License 2.0
-------------------
+**Dependencies licensed under the Apache License 2.0**
+
+------------------------------------------------------
 
 * HTCondor, Copyright (C) 1990-2007, Condor Team, Computer Sciences Department,
   University of Wisconsin-Madison, WI.
@@ -206,9 +207,45 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+**Dependencies licensed under the BSD 3-clause "New" or "Revised" License**
 
-MIT License
------------
+---------------------------------------------------------------------------
+
+* rootpy, Copyright (c) 2012-2017, The rootpy developers
+
+BSD 3-Clause License
+
+Copyright (c) [year], [fullname]
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice, this
+      list of conditions and the following disclaimer.
+
+    * Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation
+      and/or other materials provided with the distribution.
+
+    * Neither the name of the copyright holder nor the names of its
+      contributors may be used to endorse or promote products derived from
+      this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+**Dependencies licensed under the MIT License**
+
+-----------------------------------------------
 
 * appdirs, Copyright (c) 2010 ActiveState Software Inc.
 
@@ -232,9 +269,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+**dill**
 
-dill
-----
+--------
 
 Copyright (c) 2004-2016 California Institute of Technology.
 Copyright (c) 2016-2017 The Uncertainty Quantification Foundation.
@@ -273,8 +310,9 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-jinja2
-------
+**jinja2**
+
+----------
 
 Copyright (c) 2009 by the Jinja Team, see AUTHORS for more details.
 
