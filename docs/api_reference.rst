@@ -11,3 +11,7 @@ The full API reference for public classes and functions.
 
   Wrap callable objects and submit their calls to HTCondor.
 
+* :doc:`vhbbtools.plotting <api/vhbbtools.plotting>`
+
+  Create figures following the CMS Publication Committee guidelines.
+

@@ -96,11 +96,12 @@ html_theme_options = {
     'logo': 'logo.svg',
     'description': 'A Python package for CMS physics analyses using VHiggsBB ntuples.',
     'sidebar_width': '225px',
+    'fixed_sidebar': 'true',
     'github_user': 'swang373',
     'github_repo': 'vhbbtools',
-    'font_family': "'Baskerville', 'Georgia', serif",
-    'head_font_family': "'Baskerville', 'Georgia', serif",
-    'code_font_family': "'Source Code Pro', 'Consolas', 'Menlo', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace"
+    'font_family': "'Libre Baskerville', serif",
+    'font_size': '16px',
+    'code_font_family': "'Source Code Pro', 'Menlo', 'Bitstream Vera Sans Mono', monospace",
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
