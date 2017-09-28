@@ -1,0 +1,254 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>vhbbtools.htcondor &#8212; vhbbtools 0.1.0.a4 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0.a4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A Python package for CMS physics analyses using VHiggsBB ntuples.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=swang373&repo=vhbbtools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_licenses.html">Third-Party Licenses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Credits</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-vhbbtools.htcondor"></span><div class="section" id="vhbbtools-htcondor">
+<h1>vhbbtools.htcondor<a class="headerlink" href="#vhbbtools-htcondor" title="Permalink to this headline">¶</a></h1>
+<p>This subpackage provides support for executing arbitrary Python code as batch
+jobs using the HTCondor distributed computing framework.</p>
+<dl class="class">
+<dt id="vhbbtools.htcondor.HTCondorized">
+<em class="property">class </em><code class="descclassname">vhbbtools.htcondor.</code><code class="descname">HTCondorized</code><span class="sig-paren">(</span><em>func</em>, <em>input_files=[]</em>, <em>output_files=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#vhbbtools.htcondor.HTCondorized" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper transforming calls into HTCondor jobs.</p>
+<p>An HTCondorized object wraps a callable object or function. Calls to the
+HTCondorized object are forwarded to the wrapped callable, preserving the
+original signature when local execution is desired. For remote execution,
+the <a class="reference internal" href="#vhbbtools.htcondor.HTCondorized.queue" title="vhbbtools.htcondor.HTCondorized.queue"><code class="xref py py-meth docutils literal"><span class="pre">queue()</span></code></a> and <a class="reference internal" href="#vhbbtools.htcondor.HTCondorized.submit" title="vhbbtools.htcondor.HTCondorized.submit"><code class="xref py py-meth docutils literal"><span class="pre">submit()</span></code></a> methods provide the capability to
+submit calls as HTCondor jobs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>func</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#callable" title="(in Python v2.7)"><em>callable</em></a>) – A callable object.</li>
+<li><strong>input_files</strong> (<em>list of paths</em><em>, </em><em>optional</em>) – A list of paths to input files required by the callable. If the path
+is not absolute, it is assumed to be relative to the current working
+directory. The default is no input files.</li>
+<li><strong>output_files</strong> (<em>list of paths</em><em>, </em><em>optional</em>) – A list of paths to output files created by the callable. The default
+is no output files.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="vhbbtools.htcondor.HTCondorized.queue">
+<code class="descname">queue</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vhbbtools.htcondor.HTCondorized.queue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queue a call for submission as an HTCondor job.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>*args</strong> – Any positional arguments accepted by the wrapped callable.</li>
+<li><strong>**kwargs</strong> – Any keyword arguments accepted by the wrapped callable.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="vhbbtools.htcondor.HTCondorized.submit">
+<code class="descname">submit</code><span class="sig-paren">(</span><em>name=None</em>, <em>commands={}</em>, <em>no_submit=False</em><span class="sig-paren">)</span><a class="headerlink" href="#vhbbtools.htcondor.HTCondorized.submit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submit the queued jobs and consume the current queue.</p>
+<p>The jobs are organized into a simple directed acyclic graph (DAG),
+where each job is represented as an independent node, and submitted
+to the HTCondor DAG Manager (DAGMan).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – The name of the parent directory for the generated job submission
+files. The default is the current timestamp.</li>
+<li><strong>commands</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a><em>, </em><em>optional</em>) – <p>HTCondor commands to include in the nodes’ submit description file,
+in addition to the following which are handled automatically:</p>
+<blockquote>
+<div><ul>
+<li>arguments</li>
+<li>error</li>
+<li>executable</li>
+<li>getenv</li>
+<li>log</li>
+<li>output</li>
+<li>queue</li>
+<li>should_transfer_files</li>
+<li>transfer_input_files</li>
+<li>transfer_output_files</li>
+<li>universe</li>
+</ul>
+</div></blockquote>
+<p>The default is no additional commands.</p>
+</li>
+<li><strong>no_submit</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, the job submission files are generated but not submitted
+to the HTCondor scheduler. The default is False.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="vhbbtools.htcondor.htcondorize">
+<code class="descclassname">vhbbtools.htcondor.</code><code class="descname">htcondorize</code><span class="sig-paren">(</span><em>input_files=[]</em>, <em>output_files=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#vhbbtools.htcondor.htcondorize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable calls to be transformed into HTCondor jobs.</p>
+<p>An HTCondorized object wraps a callable object or function. Calls to the
+HTCondorized object are forwarded to the wrapped callable, preserving the
+original signature when local execution is desired. For remote execution,
+the <code class="xref py py-meth docutils literal"><span class="pre">queue()</span></code> and <code class="xref py py-meth docutils literal"><span class="pre">submit()</span></code> methods provide the capability to
+submit calls as HTCondor jobs.</p>
+<p>The callable is wrapped by an HTCondorized object which preserves the
+original calling signature and provides the following methods:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="xref py py-meth docutils literal"><span class="pre">queue()</span></code> : queues the positional and keyword arguments of calls
+that are submitted as HTCondor jobs.</li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">submit()</span></code> : submits and consumes the queue of jobs.</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input_files</strong> (<em>list of paths</em><em>, </em><em>optional</em>) – A list of paths to input files required by the callable. If the path
+is not absolute, it is assumed to be relative to the current working
+directory. The default is no input files.</li>
+<li><strong>output_files</strong> (<em>list of paths</em><em>, </em><em>optional</em>) – A list of paths to output files created by the callable. The default
+is no output files.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The wrapped callable.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vhbbtools.htcondor.HTCondorized" title="vhbbtools.htcondor.HTCondorized">HTCondorized</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2017, Sean-Jiun Wang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/api/vhbbtools.htcondor.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

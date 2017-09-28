@@ -1,0 +1,163 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>About &#8212; vhbbtools 0.1.0.a4 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0.a4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A Python package for CMS physics analyses using VHiggsBB ntuples.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=swang373&repo=vhbbtools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_licenses.html">Third-Party Licenses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Credits</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="about">
+<h1>About<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h1>
+<p>The VHiggsBB analysis is one of the many physics analyses performed by the CMS
+collaboration and, like the others, fields its own share of software frameworks
+and scripts. The analysis pipeline starts with the Heppy ntuplizer, which
+processes the data and Monte-Carlo simulation files into a common data format,
+and ends with the data analysis frameworks used by the various analysts.</p>
+<p>One such framework is <a class="reference external" href="https://github.com/perrozzi/Xbb">Xbb</a>, which has endured a long and battle-tested history.
+However, it is not the most friendly to new-comers or veterans:</p>
+<ul class="simple">
+<li>The framework configuration can be clunky, with options scattered across
+multiple .ini files with non-intuively organized sections.</li>
+<li>The code takes its time on tasks that should have a quick turn-around. For
+example, after changing a cut, a new set of plots can take at least half an
+hour, and a new datacard can take as much as four hours!</li>
+<li>When searching for references and examples, sometimes the documentation is
+great, sometimes its outdated, and sometimes it doesn’t exist at all.</li>
+<li>When perusing the source code for debugging, the presence of docstrings and
+inline comments are sporadic at best, and the inconsistent style makes
+parsing tiresome and time-consuming.</li>
+<li>Most times the options are set by the configuration files, but there are some
+cases where the user will have to modify the source code because of hard-coded
+behaviour, and that’s if they know to do so!</li>
+<li>The framework now has a central repository and enjoys active development, but
+some analysis channels use forked versions which can no longer be merged back.</li>
+</ul>
+<p>Even so, Xbb and its alternatives get the job done, so why does vhbbtools exist?
+Well, vhbbtools is not “yet another framework”, but a library which you can use
+to enhance your framework of choice or write a quick one-off script. The goal of
+vhbbtools is to enhance the quality of life of the current and next generation
+of VHiggsBB analysts by:</p>
+<ul class="simple">
+<li>Abstracting away boilerplate code and common tasks behind classes and
+functions that are intuitive to use and well-documented.</li>
+<li>Adhering to Python idioms and best practices to preserve speed and keep
+resource use efficient.</li>
+<li>Maintaining an organized codebase that is publicly available and complete with
+documentation and usage examples to promote reproducible science.</li>
+</ul>
+<p>By concerning itself with these details, vhbbtools better enables its users to
+analyze the ever-growing mountain of LHC data collected by CMS.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2017, Sean-Jiun Wang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/guide/about.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

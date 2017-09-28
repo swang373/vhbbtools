@@ -1,7 +1,0 @@
-# Automatically generated on {{ timestamp }}
-{% for i in range(number_of_jobs) %}
-JOB job{{ i }} node
-VARS job{{ i }} job="job{{ i }}"
-RETRY job{{ i }} 3
-{% endfor %}
-

@@ -1,0 +1,322 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>vhbbtools.plotting &#8212; vhbbtools 0.1.0.a4 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0.a4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A Python package for CMS physics analyses using VHiggsBB ntuples.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=swang373&repo=vhbbtools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_licenses.html">Third-Party Licenses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Credits</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-vhbbtools.plotting"></span><div class="section" id="vhbbtools-plotting">
+<h1>vhbbtools.plotting<a class="headerlink" href="#vhbbtools-plotting" title="Permalink to this headline">¶</a></h1>
+<p>This subpackage provides convenience classes and functions for creating
+and styling plots according to the CMS Publication Committee standards.</p>
+<dl class="class">
+<dt id="vhbbtools.plotting.Canvas">
+<em class="property">class </em><code class="descclassname">vhbbtools.plotting.</code><code class="descname">Canvas</code><span class="sig-paren">(</span><em>name=None</em>, <em>title=None</em>, <em>x=50</em>, <em>y=50</em>, <em>width=800</em>, <em>height=600</em>, <em>size_includes_decorations=True</em>, <em>left_margin=0.12</em>, <em>right_margin=0.04</em>, <em>bottom_margin=0.12</em>, <em>top_margin=0.08</em><span class="sig-paren">)</span><a class="headerlink" href="#vhbbtools.plotting.Canvas" title="Permalink to this definition">¶</a></dt>
+<dd><p>A context manager for a CMS Publication Committee style canvas.</p>
+<p>Credits to Gautier Hamel de Monchenault (Saclay), Joshua Hardenbrook (Princeton),
+and Dinko Ferencek (Rutgers) for the initial Python implementation.</p>
+<p>Entering the context sets the current style to the CMS Technical Design
+Report (TDR) style and returns a canvas with dimensions and margins set to
+default values from the CMS Publication Committee.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a><em>, </em><em>optional</em>) – The name of the canvas. The default is None for a UUID.</li>
+<li><strong>title</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a><em>, </em><em>optional</em>) – The title of the canvas. The default is None for a UUID.</li>
+<li><strong>x</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a><em>, </em><em>optional</em>) – The pixel x-coordinate of the top left corner of the canvas.
+The default is 50.</li>
+<li><strong>y</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a><em>, </em><em>optional</em>) – The pixel y-coordinate of the top left corner of the canvas.
+The default is 50.</li>
+<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a><em>, </em><em>optional</em>) – The width of the canvas in pixels. The default is 800.</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a><em>, </em><em>optional</em>) – The height of the canvas in pixels. The default is 600.</li>
+<li><strong>size_includes_decorations</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether the width and height of the canvas include the size of the window
+manager decorations (the menu and scroll bars). The default is True.</li>
+<li><strong>left_margin</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em>, </em><em>optional</em>) – The size of the left margin as a fraction of the canvas width.
+The default is 0.12.</li>
+<li><strong>right_margin</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em>, </em><em>optional</em>) – The size of the right margin as a fraction of the canvas width.
+The default is 0.04.</li>
+<li><strong>bottom_margin</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em>, </em><em>optional</em>) – The size of the bottom margin as a fraction of the canvas height.
+The default is 0.12.</li>
+<li><strong>top_margin</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em>, </em><em>optional</em>) – The size of the top margin as a fraction of the canvas height.
+The default is 0.08</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="vhbbtools.plotting.CMSLabel">
+<em class="property">class </em><code class="descclassname">vhbbtools.plotting.</code><code class="descname">CMSLabel</code><a class="headerlink" href="#vhbbtools.plotting.CMSLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A label displaying the CMS name.</p>
+<p>Credits to Gautier Hamel de Monchenault (Saclay), Joshua Hardenbrook (Princeton),
+and Dinko Ferencek (Rutgers) for the initial Python implementation.</p>
+<p>The label’s text and style properties, which are set to default values from the
+CMS Publication Committee, are exposed as instance attributes for customization:</p>
+<dl class="docutils">
+<dt>text <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
+<dd>The CMS label text. The default is “CMS”.</dd>
+<dt>position <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
+<dd><dl class="first last docutils">
+<dt>One of the following label positions on the active canvas:</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">left:</th><td class="field-body">The top left corner inside the frame (default)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">center:</th><td class="field-body">The top center inside the frame</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">right:</th><td class="field-body">The top right corner inside the frame</td>
+</tr>
+<tr class="field-even field"><th class="field-name">outside:</th><td class="field-body">The top left corner outside the frame</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd>
+<dt>font <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>The text font code. The default is 61 (Helvetica Bold).</dd>
+<dt>scale <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>The text size scale relative to the size of the top margin
+of the active canvas. The default is 0.75.</dd>
+<dt>padding_left <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>The amount of padding to the left of the text when positioned
+inside the frame, relative to the frame width of the active canvas.
+The default is 0.045.</dd>
+<dt>padding_right <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>The amount of padding to the right of the text when positioned
+inside the frame, relative to the frame width of the active canvas.
+The default is 0.045.</dd>
+<dt>padding_top <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>The amount of padding above the text. When positioned inside of
+the frame, it is relative to the frame height of the active canvas
+and the default is 0.035. When positioned outside of the frame, it
+is relative to the size of the top margin of the active canvas and
+the default is 0.8.</dd>
+<dt>sublabel.text <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
+<dd>The sublabel text positioned below the main text inside of the frame
+or to the right of the main text outside of the frame. Common examples
+are “Preliminary”, “Simulation”, or “Unpublished”. The default is an
+empty string for no sublabel.</dd>
+<dt>sublabel.font <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
+<dd>The sublabel text font code. The default is 52 (Helvetica Italic).</dd>
+<dt>sublabel.scale <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>The sublabel text size scale relative to the size of the main text.
+The default is 0.76.</dd>
+<dt>sublabel.padding_left <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>The amount of padding to the left of the sublabel text relative to the
+frame width of the active canvas. This only applies if the main text is
+positioned outside the frame of the active canvas. The default is 0.12.</dd>
+<dt>sublabel.padding_top <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>The amount of padding above the sublabel text relative to the size of
+the main text. This only applies if the main text is positioned inside
+the frame of the active canvas. The default is 1.2.</dd>
+</dl>
+<dl class="method">
+<dt id="vhbbtools.plotting.CMSLabel.draw">
+<code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vhbbtools.plotting.CMSLabel.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the CMS label and sublabel on the active canvas.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="vhbbtools.plotting.LuminosityLabel">
+<em class="property">class </em><code class="descclassname">vhbbtools.plotting.</code><code class="descname">LuminosityLabel</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#vhbbtools.plotting.LuminosityLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A label displaying the integrated luminosity and center-of-mass energy.</p>
+<p>Credits to Gautier Hamel de Monchenault (Saclay), Joshua Hardenbrook (Princeton),
+and Dinko Ferencek (Rutgers) for the initial Python implementation.</p>
+<p>The label’s text and style properties, which are set to default values from the
+CMS Publication Committee, are exposed as instance attributes for customization:</p>
+<dl class="docutils">
+<dt>font <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>The text font code. The default is 42 (Helvetica).</dd>
+<dt>scale <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>The text size scale relative to the size of the top margin
+of the active canvas. The default is 0.6.</dd>
+<dt>align <span class="classifier-delimiter">:</span> <span class="classifier">int or 2-tuple of strings</span></dt>
+<dd>The text alignment relative to the drawing coordinates of the text as
+either an integer code or tuple of horizontal and vertical alignment
+names, respectively. The default is 31, or (“right”, “bottom”).</dd>
+<dt>padding_top <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>The amount of padding above the text relative to the size
+of the top margin of the active canvas. The default is 0.8.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>text</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) – The luminosity label text. Data taking periods must be separated by
+the “+” symbol, e.g. “19.7 fb^{-1} (8 TeV) + 4.9 fb^{-1} (7 TeV)”.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="vhbbtools.plotting.LuminosityLabel.draw">
+<code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vhbbtools.plotting.LuminosityLabel.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the luminosity label on the active canvas.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="vhbbtools.plotting.draw_figure_labels">
+<code class="descclassname">vhbbtools.plotting.</code><code class="descname">draw_figure_labels</code><span class="sig-paren">(</span><em>lumi_text</em>, <em>cms_position='left'</em>, <em>extra_text=''</em><span class="sig-paren">)</span><a class="headerlink" href="#vhbbtools.plotting.draw_figure_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the CMS Publication Committee figure labels on the current pad.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>lumi_text</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) – The luminosity label text. Data taking periods must be separated by
+the “+” symbol, e.g. “19.7 fb^{-1} (8 TeV) + 4.9 fb^{-1} (7 TeV)”.</li>
+<li><strong>cms_position</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a><em>, </em><em>optional</em>) – <dl class="docutils">
+<dt>The CMS label position on the active canvas:</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">left:</th><td class="field-body">The top left corner inside the frame (default)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">center:</th><td class="field-body">The top center inside the frame</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">right:</th><td class="field-body">The top right corner inside the frame</td>
+</tr>
+<tr class="field-even field"><th class="field-name">outside:</th><td class="field-body">The top left corner outside the frame</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+<li><strong>extra_text</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a><em>, </em><em>optional</em>) – The sublabel text positioned below the CMS label inside of the frame
+or to the right of the CMS label outside of the frame. Common examples
+are “Preliminary”, “Simulation”, or “Unpublished”. The default is an
+empty string for no sublabel.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2017, Sean-Jiun Wang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/api/vhbbtools.plotting.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

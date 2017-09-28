@@ -1,7 +1,0 @@
-include CHANGES
-include LICENSE
-include LICENSE-3RD-PARTY
-include README
-
-graft vhbbtools/htcondor/templates
-

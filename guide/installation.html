@@ -1,0 +1,182 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Installation &#8212; vhbbtools 0.1.0.a4 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0.a4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A Python package for CMS physics analyses using VHiggsBB ntuples.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=swang373&repo=vhbbtools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_licenses.html">Third-Party Licenses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Credits</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>These instructions have only been tested on the <a class="reference external" href="http://information-technology.web.cern.ch/services/lxplus-service">lxplus</a> and <a class="reference external" href="http://www.uscms.org/uscms_at_work/physics/computing/getstarted/uaf.shtml">cmslpc</a>
+computing clusters, so feel free to submit an issue if it doesn’t work for you.</p>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>vhbbtools is meant to be integrated with a CMSSW release and, currently, only
+those releases that distribute Python 2.7 are officially supported.</p>
+<p>To prepare the installation, checkout a CMSSW release, set up its runtime
+environment, and then create and activate a Python virtual environment that
+points to its Python interpreter:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cmsrel CMSSW_X_Y_Z
+<span class="nb">cd</span> CMSSW_X_Y_Z/src
+cmsenv
+virtualenv --python <span class="s2">&quot;</span><span class="k">$(</span>which python<span class="k">)</span><span class="s2">&quot;</span> venv
+<span class="nb">source</span> venv/bin/activate
+</pre></div>
+</div>
+<p>The virtual environment is needed to ensure that vhbbtools and its dependencies
+are accessible to the correct Python interpeter and do not contaminate the
+system Python’s site-packages.</p>
+<p>The virtual environment is deactivated by the command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>deactivate
+</pre></div>
+</div>
+<p>and reactivated by the commands:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cmsenv <span class="c1"># If the runtime environment hasn&#39;t been set</span>
+<span class="nb">source</span> venv/bin/activate
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-from-pypi-recommended">
+<h2>Install from PyPI (Recommended)<a class="headerlink" href="#install-from-pypi-recommended" title="Permalink to this headline">¶</a></h2>
+<p>Once the virtual environment is ready, install the package using pip:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>pip install vhbbtools
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-from-source">
+<h2>Install from Source<a class="headerlink" href="#install-from-source" title="Permalink to this headline">¶</a></h2>
+<p>Once the virtual environment is ready, clone the repository:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone git@github.com:swang373/vhbbtools.git
+</pre></div>
+</div>
+<p>and then change to the vhbbtools directory and run the installer:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> vhbbtools
+python setup.py install
+</pre></div>
+</div>
+</div>
+<div class="section" id="check-installation">
+<h2>Check Installation<a class="headerlink" href="#check-installation" title="Permalink to this headline">¶</a></h2>
+<p>If the installation succeeded, you should be able to import
+the package:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vhbbtools</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">help</span><span class="p">(</span><span class="n">vhbbtools</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Eventually, a script will be provided to run a suite of unit tests.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2017, Sean-Jiun Wang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/guide/installation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
