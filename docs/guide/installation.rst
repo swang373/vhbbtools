@@ -70,6 +70,8 @@ and then change to the vhbbtools directory and run the installer:
 Check Installation
 ------------------
 
+.. highlight:: python
+
 If the installation succeeded, you should be able to import
 the package::
 
