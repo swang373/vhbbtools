@@ -1,5 +1,7 @@
-# vhbbtools
----
+**vhbbtools**
+
+=============
+
 A Python package for CMS physics analyses using VHiggsBB ntuples.
 
 Read the docs at https://www.swang373.github.io/vhbbtools/
