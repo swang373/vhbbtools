@@ -38,6 +38,7 @@ Miscellaneous Pages
 .. toctree::
    :titlesonly:
 
+   contribution
    changelog
    license
    third_party_licenses
