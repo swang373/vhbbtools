@@ -1,6 +1,5 @@
-**vhbbtools**
-
-=============
+vhbbtools
+=========
 
 A Python package for CMS physics analyses using VHiggsBB ntuples.
 
