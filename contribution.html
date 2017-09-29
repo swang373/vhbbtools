@@ -1,0 +1,228 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Contribution &#8212; vhbbtools 0.1.0.a4 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0.a4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Changelog" href="changelog.html" />
+    <link rel="prev" title="API Reference" href="api_reference.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logo.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A Python package for CMS physics analyses using VHiggsBB ntuples.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=swang373&repo=vhbbtools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="user_guide.html">User Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="third_party_licenses.html">Third-Party Licenses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">Credits</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="api_reference.html" title="previous chapter">API Reference</a></li>
+      <li>Next: <a href="changelog.html" title="next chapter">Changelog</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="contribution">
+<h1>Contribution<a class="headerlink" href="#contribution" title="Permalink to this headline">¶</a></h1>
+<p>If you would like to contribute to vhbbtools, feel free to clone the repository
+or fork the project. To keep the git workflow simple, please create feature
+branches based on the master branch. When your new feature is ready, or you
+would like to initiate a discussion about your feature, submit a pull request.</p>
+<p>As the project matures, expect more information about conventions and practices
+to appear. For now, the following guidelines suffice:</p>
+<ul class="simple">
+<li>Python code should adhere to the PEP 8 style guide.</li>
+<li>Document your code using NumPy style docstrings!</li>
+<li>Feature branches should have a clear and concise name describing the feature
+under development.</li>
+</ul>
+<div class="section" id="editing-and-building-the-documentation">
+<h2>Editing and Building the Documentation<a class="headerlink" href="#editing-and-building-the-documentation" title="Permalink to this headline">¶</a></h2>
+<p>Editing the documentation and adding new documentation pages follows the same
+process as developing new features. The documentation is written in
+<a class="reference external" href="http://www.sphinx-doc.org/en/stable/rest.html">reStructuredText</a> and generated using <a class="reference external" href="http://www.sphinx-doc.org/en/stable/index.html">Sphinx</a>, so some familiarity with
+them is encouraged. You can also peruse the source of the current documentation
+for usage examples.</p>
+<ol class="arabic">
+<li><p class="first">Clone the repository, create a new documentation feature branch, and change
+to the <code class="docutils literal"><span class="pre">docs</span></code> directory which contains the documentation source files.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone git@github.com:swang373/vhbbtools.git
+<span class="nb">cd</span> vhbbtools
+git checkout -b my_new_docs
+<span class="nb">cd</span> docs
+</pre></div>
+</div>
+</li>
+<li><p class="first">Edit any of the existing documentation files, adding new ones as needed.</p>
+</li>
+<li><p class="first">Install Sphinx if it isn’t already installed, then build the documentation
+to check that your changes compile without errors:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>pip install sphinx
+make html
+</pre></div>
+</div>
+<p>The build products will be placed within a new directory called <code class="docutils literal"><span class="pre">_build</span></code>.</p>
+</li>
+<li><p class="first">Preview your changes by opening the file <code class="docutils literal"><span class="pre">_build/html/index.html</span></code> in your
+web browser of choice. This is a good time to check that your edits render
+as you expect and nothing else breaks.</p>
+</li>
+<li><p class="first">Repeat steps 2-4 until you are satisfied with your changes, then commit
+them and push your branch upstream.</p>
+</li>
+<li><p class="first">Submit a pull request to incorporate your improvements into the official
+documentation!</p>
+</li>
+</ol>
+</div>
+<div class="section" id="building-the-documentation-for-github-pages">
+<h2>Building the Documentation for GitHub Pages<a class="headerlink" href="#building-the-documentation-for-github-pages" title="Permalink to this headline">¶</a></h2>
+<p>This section is mainly relevant to the documentation maintainers. The sources
+for the documentation website are tracked by the <code class="docutils literal"><span class="pre">gh-pages</span></code> branch for hosting
+via <a class="reference external" href="https://pages.github.com/">GitHub Pages</a>. As the documentation receives updates, new builds of the
+documentation website will need to be committed to the <code class="docutils literal"><span class="pre">gh-pages</span></code> branch to
+keep the live documentation up to date.</p>
+<ol class="arabic">
+<li><p class="first">Clone the main repository.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone git@github.com:swang373/vhbbtools.git
+</pre></div>
+</div>
+</li>
+<li><p class="first">Create a new directory next to the aforementioned clone to serve as the build
+directory. Inside the new directory, clone the main repository again and then
+checkout the <code class="docutils literal"><span class="pre">gh-pages</span></code> branch:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir vhbbtools-gh-pages
+<span class="nb">cd</span> vhbbtools-gh-pages
+git clone git@github.com:swang373/vhbbtools.git html
+git checkout gh-pages
+</pre></div>
+</div>
+<p>The main repository is cloned into the directory <code class="docutils literal"><span class="pre">html</span></code> in anticipation
+that it will contain the build products of the updated documentation.</p>
+</li>
+<li><p class="first">Change to the <code class="docutils literal"><span class="pre">docs</span></code> directory of the first clone and, assuming Sphinx is
+already installed, build the documentation using the following commands:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ../vhbbtools/docs
+make html <span class="nv">BUILDDIR</span><span class="o">=</span>../../vhbbtools-gh-pages
+</pre></div>
+</div>
+<p>The BUILDDIR option must be set to the path of the build directory created
+in step 2.</p>
+</li>
+<li><p class="first">Once the build succeeds, change to the <code class="docutils literal"><span class="pre">html</span></code> directory inside the build
+directory, commit all of the files, and then push the new commit upstream:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ../../vhbbtools-gh-pages/html
+git add .
+git commit -m <span class="s2">&quot;New build for the live documentation&quot;</span>
+git push origin gh-pages
+</pre></div>
+</div>
+<p>The live documentation at <a class="reference external" href="https://www.swang373.github.io/vhbbtools">https://www.swang373.github.io/vhbbtools</a> will be
+updated to reflect the latest build. It may take a minute or two for the
+changes to appear.</p>
+</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2017, Sean-Jiun Wang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/contribution.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
