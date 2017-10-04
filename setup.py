@@ -27,6 +27,7 @@ setup(
         'appdirs',
         'contextlib2',
         'dill',
+        'futures',
         'jinja2',
         'rootpy>=1.0.0',
     ],
