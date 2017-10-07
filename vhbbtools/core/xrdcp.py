@@ -1,9 +1,7 @@
 import os
 import subprocess
 
-from concurrent import futures
-
-from ..utils import safe_makedirs
+import concurrent.futures
 
 
 class XRDCopyError(Exception):
@@ -44,6 +42,10 @@ def xrdcp(src, **kwargs):
 def multixrdcp(*srcs, **kwargs):
     """Copy files in parallel using the xrdcp command.
 
+    The xrdcp executable has a "--parallel" option, but limits the number of
+    copy jobs to at most four. A ProcessPoolExecutor allows the maximum number
+    of available cores to be utilized.
+
     Parameters
     ----------
     *srcs : paths or urls
@@ -59,7 +61,10 @@ def multixrdcp(*srcs, **kwargs):
     force = kwargs.pop('force', False)
     if kwargs:
         raise TypeError('Unexpected keyword arguments: {!r}'.format(kwargs))
-    with futures.ProcessPoolExecutor() as executor:
-        fs = [executor.submit(xrdcp, src, dst=dst, force=force) for src in srcs]
-    futures.wait(fs)
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        jobs = [executor.submit(xrdcp, src, dst=dst, force=force) for src in srcs]
+        # If an exception is raised in a job, calling its result method will reraise
+        # the exception without having to catch and reraise it ourselves.
+        for job in concurrent.futures.as_completed(jobs):
+            job.result()
 
