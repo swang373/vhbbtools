@@ -160,7 +160,7 @@ def get_dataset_record_from_dbs(dataset, instance='global'):
     dataset : string
         A fully qualified dataset name in the format
         "/primary_dataset/processed_dataset/data_tier".
-    instance : str, optional
+    instance : string, optional
         The DBS server instance where the dataset was published.
         This can be one of the following DBS server instances:
             * global (default)
@@ -188,10 +188,10 @@ def get_file_records_from_dbs(dataset, instance='global'):
 
     Parameters
     ----------
-    dataset : str
+    dataset : string
         A fully qualified dataset name in the format
         "/primary_dataset/processed_dataset/data_tier".
-    instance : str, optional
+    instance : string, optional
         The DBS server instance where the dataset was published.
         This can be one of the following DBS server instances:
             * global (default)
