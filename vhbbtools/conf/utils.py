@@ -214,23 +214,3 @@ def get_file_records_from_dbs(dataset, instance='global'):
     else:
         raise DBSRecordNotFoundError('Unable to locate file records for {0} from {1}'.format(dataset, dbs_api.url))
 
-
-class cached_class_property(object):
-    """A decorator that converts class methods into cached class properties.
-
-    Parameters
-    ----------
-    func : method
-        A method with a single cls argument.
-    """
-    def __init__(self, func):
-        self.func = func
-        self.__doc__ = getattr(func, '__doc__')
-
-    def __get__(self, instance, instance_type):
-        if instance is None:
-            return self
-        value = self.func(instance)
-        setattr(instance, self.func.__name__, value)
-        return value
-

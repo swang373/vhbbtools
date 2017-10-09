@@ -25,6 +25,7 @@ setup(
     python_requires='>=2.7, <3',
     install_requires=[
         'appdirs',
+        'cached_property',
         'contextlib2',
         'dill',
         'jinja2',

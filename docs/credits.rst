@@ -17,6 +17,11 @@ contributors and provides links to their websites where possible.
 * `appdirs <https://github.com/ActiveState/appdirs>`_
     `ActiveState Software Inc. <https://www.activestate.com/>`_
 
+* `cached_property <https://github.com/pydanny/cached-property>`_
+    `Daniel Roy Greenfeld <https://www.pydanny.com/pages/open-source.html>`_,
+    `Audrey Roy Greenfeld <https://www.audreyr.com/code/>`,
+    and the cached_property contributors
+
 * `contextlib2 <https://github.com/jazzband/contextlib2>`_
     `Nicholas Coghlan <http://www.curiousefficiency.org/pages/about.html>`_ and the
     `Jazzband organization <https://jazzband.co/>`_
