@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>&lt;no title&gt; &#8212; vhbbtools 0.1.0.a4 documentation</title>
+    <title>vhbbtools.conf &#8212; vhbbtools 0.1.0.a4 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -96,7 +96,144 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  
+  <span class="target" id="module-vhbbtools.conf"></span><div class="section" id="vhbbtools-conf">
+<h1>vhbbtools.conf<a class="headerlink" href="#vhbbtools-conf" title="Permalink to this headline">¶</a></h1>
+<p>This subpackage provides configuration classes
+which handle the datasets used in an analysis.</p>
+<dl class="class">
+<dt id="vhbbtools.conf.DatasetBase">
+<em class="property">class </em><code class="descclassname">vhbbtools.conf.</code><code class="descname">DatasetBase</code><span class="sig-paren">(</span><em>selection=None</em>, <em>chunk_size=2000</em>, <em>redirector='global'</em>, <em>valid=True</em><span class="sig-paren">)</span><a class="headerlink" href="#vhbbtools.conf.DatasetBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>The base class for Dataset classes.</p>
+<p>User-defined Dataset classes should inherit from this base class
+and override the following class attributes:</p>
+<dl class="docutils">
+<dt>name <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
+<dd>The fully qualified dataset name of the format
+“/primary_dataset/processed_dataset/data_tier”.</dd>
+<dt>dbs_instance <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
+<dd><p class="first">One of the following DBS server instances where the dataset is
+registered:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>global (default)</li>
+<li>phys01</li>
+<li>phys02</li>
+<li>phys03</li>
+<li>caf</li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>files <span class="classifier-delimiter">:</span> <span class="classifier">list of paths or urls, optional</span></dt>
+<dd>The paths or urls of the dataset’s files.</dd>
+</dl>
+<p>Iterating over a Dataset instance yields handles to the events contained
+in the files registered on DBS. This behaviour is altered by overriding
+the <code class="xref py py-attr docutils literal"><span class="pre">files</span></code> attribute and providing explicit paths or urls.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>selection</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a><em>, </em><em>optional</em>) – An initial selection applied to the dataset’s events.</li>
+<li><strong>chunk_size</strong> (<em>numeric</em><em>, </em><em>optional</em>) – The maximum chunk size in megabytes (MB) when iterating over the
+dataset’s events. The chunk size is defined as the sum over the sizes
+of the dataset’s files passed to the event handler. This is ignored
+when overriding the <code class="xref py py-attr docutils literal"><span class="pre">files</span></code> attribute. The default is 2000 MB.</li>
+<li><strong>valid</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Only iterate over files marked as valid on DBS. This is ignored when
+overriding the <code class="xref py py-attr docutils literal"><span class="pre">files</span></code> attribute. The default is True.</li>
+<li><strong>redirector</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a><em>, </em><em>optional</em>) – <p>One of the following aliases for the XRootD redirectors used to locate
+and access the dataset’s files:</p>
+<blockquote>
+<div><ul>
+<li>global (default)</li>
+<li>fnal</li>
+<li>infn</li>
+</ul>
+</div></blockquote>
+<p>This is ignored when overriding the <code class="xref py py-attr docutils literal"><span class="pre">files</span></code> attribute.</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="vhbbtools.conf.DatasetBase.dbs_dataset_record">
+<code class="descname">dbs_dataset_record</code><a class="headerlink" href="#vhbbtools.conf.DatasetBase.dbs_dataset_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>The dataset’s information registered with DBS.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="vhbbtools.conf.DatasetBase.dbs_file_records">
+<code class="descname">dbs_file_records</code><a class="headerlink" href="#vhbbtools.conf.DatasetBase.dbs_file_records" title="Permalink to this definition">¶</a></dt>
+<dd><p>The dataset’s file information registered with DBS.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="vhbbtools.conf.MonteCarloBase">
+<em class="property">class </em><code class="descclassname">vhbbtools.conf.</code><code class="descname">MonteCarloBase</code><span class="sig-paren">(</span><em>selection=None</em>, <em>chunk_size=2000</em>, <em>redirector='global'</em>, <em>valid=True</em><span class="sig-paren">)</span><a class="headerlink" href="#vhbbtools.conf.MonteCarloBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>The base class for MonteCarlo classes.</p>
+<p>User-defined MonteCarlo classes should inherit from this base class
+and override the following class attributes:</p>
+<dl class="docutils">
+<dt>name <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
+<dd>The fully qualified dataset name of the format
+“/primary_dataset/processed_dataset/data_tier”.</dd>
+<dt>cross_section <span class="classifier-delimiter">:</span> <span class="classifier">numeric</span></dt>
+<dd>The cross section of the Monte Carlo sample in units of picobarns (pb).</dd>
+<dt>dbs_instance <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
+<dd><p class="first">One of the following DBS server instances where the dataset is
+registered:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>global (default)</li>
+<li>phys01</li>
+<li>phys02</li>
+<li>phys03</li>
+<li>caf</li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>files <span class="classifier-delimiter">:</span> <span class="classifier">list of paths or urls, optional</span></dt>
+<dd>The paths or urls of the dataset’s files.</dd>
+</dl>
+<p>Iterating over a MonteCarlo instance yields handles to the events contained
+in the files registered on DBS. This behaviour is altered by overriding
+the <code class="xref py py-attr docutils literal"><span class="pre">files</span></code> attribute and providing explicit paths or urls.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>selection</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a><em>, </em><em>optional</em>) – An initial selection applied to the dataset’s events.</li>
+<li><strong>chunk_size</strong> (<em>numeric</em><em>, </em><em>optional</em>) – The maximum chunk size in megabytes (MB) when iterating over the
+dataset’s events. The chunk size is defined as the sum over the sizes
+of the dataset’s files passed to the event handler. This is ignored
+when overriding the <code class="xref py py-attr docutils literal"><span class="pre">files</span></code> attribute. The default is 2000 MB.</li>
+<li><strong>valid</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Only iterate over files marked as valid on DBS. This is ignored when
+overriding the <code class="xref py py-attr docutils literal"><span class="pre">files</span></code> attribute. The default is True.</li>
+<li><strong>redirector</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a><em>, </em><em>optional</em>) – <p>One of the following aliases for the XRootD redirectors used to locate
+and access the dataset’s files:</p>
+<blockquote>
+<div><ul>
+<li>global (default)</li>
+<li>fnal</li>
+<li>infn</li>
+</ul>
+</div></blockquote>
+<p>This is ignored when overriding the <code class="xref py py-attr docutils literal"><span class="pre">files</span></code> attribute.</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
 
           </div>
         </div>
