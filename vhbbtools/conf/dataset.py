@@ -11,7 +11,7 @@ from .utils import (
 )
 
 
-# The urls of the global and regional XRootD redirector servers.
+# Aliases for the urls of the global and regional XRootD redirector servers.
 XROOTD_REDIRECTORS = {
     'global': 'cms-xrd-global.cern.ch',
     'fnal': 'cmsxrootd.fnal.gov',
@@ -19,10 +19,14 @@ XROOTD_REDIRECTORS = {
 }
 
 
-class DatasetBase(object):
-    """The base class for datasets.
+class DatasetError(Exception):
+    pass
 
-    User-defined dataset objects should inherit from this base class
+
+class DatasetBase(object):
+    """The base class for Dataset classes.
+
+    User-defined Dataset classes should inherit from this base class
     and override the following class attributes:
 
     name : string
@@ -39,9 +43,9 @@ class DatasetBase(object):
     files : list of paths or urls, optional
         The paths or urls of the dataset's files.
 
-    Iterating over dataset object instances yields handles to the events
-    contained in the files registered on DBS. Users customize this behaviour
-    by overriding the "files" attribute and providing their own paths or urls.
+    Iterating over a Dataset instance yields handles to the events contained
+    in the files registered on DBS. This behaviour is altered by overriding
+    the :attr:`files` attribute and providing explicit paths or urls.
 
     Parameters
     ----------
@@ -78,7 +82,7 @@ class DatasetBase(object):
     files = None
 
     def __init__(self, selection=None, chunk_size=2000, redirector='global', valid=True):
-        self.redirector = XROOTD_REDIRECTORS.get('redirector')
+        self.redirector = XROOTD_REDIRECTORS.get(redirector)
         # TODO: Write the event handler object.
         self.selection = selection
         self.chunk_size = chunk_size
@@ -94,31 +98,33 @@ class DatasetBase(object):
         """An iterator yielding handles to the dataset's events."""
         # TODO: Actually return event handles.
         if self.files is None:
-            # By default, only iterate over files marked valid on DBS.
+            if self.redirector is None:
+                raise DatasetError('A valid XRootD redirector url is required to access remote files.')
+            else:
+                template_url = 'root://{0}//{{0}}'.format(self.redirector)
             if self.valid:
                 records = itertools.ifilter(lambda record: record.is_file_valid, self.dbs_file_records)
             else:
                 records = iter(self.dbs_file_records)
-            # Yield lists of logical filenames according to the chunk size.
             chunk, current_size = [], 0
             for record in records:
+                url = template_url.format(record.logical_file_name)
                 file_size_in_MB = record.file_size / 1000000
                 if current_size + file_size_in_MB > self.chunk_size:
                     yield chunk
-                    chunk = [record.logical_file_name]
+                    chunk = [url]
                     current_size = file_size_in_MB
                 else:
-                    chunk.append(record.logical_file_name)
+                    chunk.append(url)
                     current_size += file_size_in_MB
             yield chunk
         else:
-            # Iterate over the files configured by the user.
             for files in self.files:
                 yield files
 
     def _validate_dataset_name(self):
         if self.name is None or not self.DATASET_NAME_RE.match(self.name):
-            raise AttributeError(
+            raise DatasetError(
                 'The class attribute "name" must refer to a fully qualified dataset '
                 'name of the form "/primary_dataset/processed_dataset/data_tier"'
             )
@@ -137,9 +143,9 @@ class DatasetBase(object):
 
 
 class MonteCarloBase(DatasetBase):
-    """The base class for Monte Carlo samples.
+    """The base class for MonteCarlo classes.
 
-    User-defined Monte Carlo objects should inherit from this base class
+    User-defined MonteCarlo classes should inherit from this base class
     and override the following class attributes:
 
     name : string
@@ -148,30 +154,29 @@ class MonteCarloBase(DatasetBase):
     cross_section : numeric
         The cross section of the Monte Carlo sample in units of picobarns (pb).
     dbs_instance : string
-        One of the following DBS server instances where the Monte Carlo
-        sample is registered:
+        One of the following DBS server instances where the dataset is
+        registered:
             :global: (default)
             :phys01:
             :phys02:
             :phys03:
             :caf:
     files : list of paths or urls, optional
-        The paths or urls of the Monte Carlo sample's files.
+        The paths or urls of the dataset's files.
 
-    Iterating over Monte Carlo object instances yields handles to the events
-    contained in the files registered on DBS. Users customize this behaviour
-    by overriding the "files" attribute and providing their own paths or urls.
+    Iterating over a MonteCarlo instance yields handles to the events contained
+    in the files registered on DBS. This behaviour is altered by overriding
+    the :attr:`files` attribute and providing explicit paths or urls.
 
     Parameters
     ----------
     selection : string, optional
-        An initial selection applied to the Monte Carlo sample's events.
+        An initial selection applied to the dataset's events.
     chunk_size : numeric, optional
         The maximum chunk size in megabytes (MB) when iterating over the
-        Monte Carlo sample's events. The chunk size is defined as the sum
-        over the sizes of the Monte Carlo sample's files passed to the event
-        handler. This is ignored when overriding the :attr:`files` attribute.
-        The default is 2000 MB.
+        dataset's events. The chunk size is defined as the sum over the sizes
+        of the dataset's files passed to the event handler. This is ignored
+        when overriding the :attr:`files` attribute. The default is 2000 MB.
     valid : bool, optional
         Only iterate over files marked as valid on DBS. This is ignored when
         overriding the :attr:`files` attribute. The default is True.
