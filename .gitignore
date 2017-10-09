@@ -1,0 +1,3 @@
+# Ignore the Sphinx .buildinfo file
+.buildinfo
+
