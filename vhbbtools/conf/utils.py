@@ -124,13 +124,13 @@ def get_dbs_api(instance='global'):
 
     Parameters
     ----------
-    instance : str
+    instance : string
         One of the following DBS server instances:
-        * global (default)
-        * phys01
-        * phys02
-        * phys03
-        * caf
+            * global (default)
+            * phys01
+            * phys02
+            * phys03
+            * caf
 
     Returns
     -------
@@ -157,17 +157,17 @@ def get_dataset_record_from_dbs(dataset, instance='global'):
 
     Parameters
     ----------
-    dataset : str
+    dataset : string
         A fully qualified dataset name in the format
         "/primary_dataset/processed_dataset/data_tier".
     instance : str, optional
         The DBS server instance where the dataset was published.
         This can be one of the following DBS server instances:
-        * global (default)
-        * phys01
-        * phys02
-        * phys03
-        * caf
+            * global (default)
+            * phys01
+            * phys02
+            * phys03
+            * caf
 
     Returns
     -------
@@ -194,11 +194,11 @@ def get_file_records_from_dbs(dataset, instance='global'):
     instance : str, optional
         The DBS server instance where the dataset was published.
         This can be one of the following DBS server instances:
-        * global (default)
-        * phys01
-        * phys02
-        * phys03
-        * caf
+            * global (default)
+            * phys01
+            * phys02
+            * phys03
+            * caf
 
     Returns
     -------

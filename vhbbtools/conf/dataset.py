@@ -35,11 +35,11 @@ class DatasetBase(object):
     dbs_instance : string
         One of the following DBS server instances where the dataset is
         registered:
-            :global: (default)
-            :phys01:
-            :phys02:
-            :phys03:
-            :caf:
+            * global (default)
+            * phys01
+            * phys02
+            * phys03
+            * caf
     files : list of paths or urls, optional
         The paths or urls of the dataset's files.
 
@@ -62,9 +62,9 @@ class DatasetBase(object):
     redirector : string, optional
         One of the following aliases for the XRootD redirectors used to locate
         and access the dataset's files:
-            :global: (default)
-            :fnal:
-            :infn:
+            * global (default)
+            * fnal
+            * infn
         This is ignored when overriding the :attr:`files` attribute.
     """
     # The dataset name format regular expression.
@@ -156,11 +156,11 @@ class MonteCarloBase(DatasetBase):
     dbs_instance : string
         One of the following DBS server instances where the dataset is
         registered:
-            :global: (default)
-            :phys01:
-            :phys02:
-            :phys03:
-            :caf:
+            * global (default)
+            * phys01
+            * phys02
+            * phys03
+            * caf
     files : list of paths or urls, optional
         The paths or urls of the dataset's files.
 
@@ -183,9 +183,9 @@ class MonteCarloBase(DatasetBase):
     redirector : string, optional
         One of the following aliases for the XRootD redirectors used to locate
         and access the dataset's files:
-            :global: (default)
-            :fnal:
-            :infn:
+            * global (default)
+            * fnal
+            * infn
         This is ignored when overriding the :attr:`files` attribute.
     """
     # The cross section in units of picobarns (pb).
