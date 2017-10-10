@@ -35,9 +35,10 @@ class Events(ROOT.TChain):
         after the initial selection has been applied. The default is to
         keep all branches active.
     download : bool, keyword only, optional
-        Copy remote files to a local temporary directory and open the copies
-        for reading instead. The default is to read remote files directly using
-        the XRootD protocol.
+        Reading remote files using the XRootD protocol can result in
+        significantly worse performance in terms of speed compared to
+        local files. If True, the remote files are downloaded to a
+        local temporary directory for reading. The default is False.
     """
     def __init__(self, *filenames, **kwargs):
         self.selection = kwargs.pop('selection', None)
@@ -66,6 +67,12 @@ class Events(ROOT.TChain):
     def __len__(self):
         """The total number of events."""
         return self.GetEntries()
+
+    def __repr__(self):
+        return '{0}({1})'.format(
+            self.__class__.__name__,
+            ', '.join(repr(filename) for filename in self.filenames),
+        )
 
     def _cleanup(self):
         """Clean up any count histogram attributes and downloaded files."""
@@ -145,6 +152,7 @@ class Events(ROOT.TChain):
         found = array.array('I', [1])
         for branch in branches:
             self.SetBranchStatus(branch, 1, found)
+        return self
 
     def deactivate(self, *branches, **kwargs):
         """Deactivate branches.
@@ -168,6 +176,7 @@ class Events(ROOT.TChain):
         found = array.array('I', [1])
         for branch in branches:
             self.SetBranchStatus(branch, 0, found)
+        return self
 
     def count(self):
         """Return the number of events that pass the selections applied."""
@@ -222,6 +231,7 @@ class Events(ROOT.TChain):
             if self.eventlist:
                 eventlist.Intersect(self.eventlist)
             self.eventlist = eventlist
+        return self
 
     def to_root(self, dst, optimize=False):
         """Write the selected events and count histograms to a ROOT file.

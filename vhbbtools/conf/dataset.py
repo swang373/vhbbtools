@@ -5,6 +5,7 @@ import re
 
 import cached_property
 
+from .. import Events
 from .utils import (
     get_dataset_record_from_dbs,
     get_file_records_from_dbs,
@@ -83,7 +84,6 @@ class DatasetBase(object):
 
     def __init__(self, selection=None, chunk_size=2000, redirector='global', valid=True):
         self.redirector = XROOTD_REDIRECTORS.get(redirector)
-        # TODO: Write the event handler object.
         self.selection = selection
         self.chunk_size = chunk_size
         self.valid = valid
@@ -96,28 +96,30 @@ class DatasetBase(object):
 
     def __iter__(self):
         """An iterator yielding handles to the dataset's events."""
-        # TODO: Actually return event handles.
         if self.files is None:
             if self.redirector is None:
                 raise DatasetError('A valid XRootD redirector url is required to access remote files.')
             else:
                 template_url = 'root://{0}//{{0}}'.format(self.redirector)
+
             if self.valid:
                 records = itertools.ifilter(lambda record: record.is_file_valid, self.dbs_file_records)
             else:
                 records = iter(self.dbs_file_records)
+
             chunk, current_size = [], 0
             for record in records:
                 url = template_url.format(record.logical_file_name)
                 file_size_in_MB = record.file_size / 1000000
                 if current_size + file_size_in_MB > self.chunk_size:
-                    yield chunk
+                    yield Events(*chunk, selection=self.selection)
                     chunk = [url]
                     current_size = file_size_in_MB
                 else:
                     chunk.append(url)
                     current_size += file_size_in_MB
-            yield chunk
+            yield Events(*chunk, selection=self.selection)
+
         else:
             for files in self.files:
                 yield files
