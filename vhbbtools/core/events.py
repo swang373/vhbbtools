@@ -19,7 +19,7 @@ class Events(ROOT.TChain):
     Entering the context opens the files for reading, provides attribute
     access to count histograms, and sets the initial state by selecting
     events and deactivating branches if specified.
-    
+
     Exiting the context resets the state, deletes the count histogram
     attributes, and closes the file handles.
 
@@ -58,7 +58,7 @@ class Events(ROOT.TChain):
         self.deactivate(*self.ignore_branches)
         return self
 
-    def __exit__(self):
+    def __exit__(self, exception_type, exception_value, traceback):
         self._cleanup()
         self.eventlist = 0
         self.Reset()
@@ -70,7 +70,7 @@ class Events(ROOT.TChain):
     def _cleanup(self):
         """Clean up any count histogram attributes and downloaded files."""
         if self.download:
-            #shutil.rmtree(self._tmpdir)
+            shutil.rmtree(self._tmpdir)
             del self._tmpdir
         for hist in self._count_histograms:
             delattr(self, hist.GetName())
@@ -82,14 +82,14 @@ class Events(ROOT.TChain):
         # Prevent the Draw method from modifying the current gDirectory.
         with thread_specific_tmprootdir() as d:
             self.draw('>>{0}'.format(name), selection)
-            eventlist = d.GetName(name)
+            eventlist = d.Get(name)
             return eventlist
 
     def _download_files(self):
         """Download the files to a temporary directory and return their paths."""
         self._tmpdir = tempfile.mkdtemp()
-        multixrdcp(*self.filenames, dst=self._tmpdir)
-        return sorted_glob('{0}/*'.format(self._tmpdir))
+        multixrdcp(*self.filenames, dst=self._tmpdir + '/')
+        return sorted_glob(self._tmpdir + '/*')
 
     def _set_count_histogram_attributes(self):
         """Set the count histograms as attributes accessible by their name."""
@@ -225,7 +225,7 @@ class Events(ROOT.TChain):
 
     def to_root(self, dst, optimize=False):
         """Write the selected events and count histograms to a ROOT file.
-        
+
         Parameters
         ----------
         dst : path

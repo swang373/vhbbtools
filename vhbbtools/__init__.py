@@ -16,7 +16,7 @@ __version__ = '0.1.0.a4'
 from .core.events import Events
 
 # Utilities
-from .core.utils import xrdcp, multixrdcp
+from .core.xrdcp import xrdcp, multixrdcp
 
 __all__ = [
     # Core classes
