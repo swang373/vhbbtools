@@ -1,4 +1,5 @@
 import errno
+import glob
 import os
 
 
@@ -22,4 +23,13 @@ def safe_makedirs(path):
             pass
         else:
             raise
+
+
+def sorted_glob(pathname):
+    """Return a sorted list of path names that match pathname.
+
+    Otherwise, the glob module returns matching path names in
+    arbitrary order because of its underlying usage of os.listdir().
+    """
+    return sorted(glob.iglob(pathname))
 

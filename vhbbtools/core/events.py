@@ -1,71 +1,100 @@
 import array
+import glob
 import hashlib
+import shutil
+import tempfile
 
 import contextlib2
 from rootpy import ROOT
 from rootpy.context import thread_specific_tmprootdir
-from rootpy.io import root_open
+from rootpy.io import TemporaryFile, root_open
+
+from ..utils import sorted_glob
+from .xrdcp import multixrdcp
 
 
 class Events(ROOT.TChain):
-    """An interface for handling the events stored in VHiggsBB ntuples.
+    """A reusable context manager for handling VHiggsBB ntuples.
 
-    This is implemented as a subclass of TChain.
+    Entering the context opens the files for reading, provides attribute
+    access to count histograms, and sets the initial state by selecting
+    events and deactivating branches if specified.
+    
+    Exiting the context resets the state, deletes the count histogram
+    attributes, and closes the file handles.
 
     Parameters
     ----------
     *filenames : paths or urls
-        The paths or urls of the ntuples to add to the chain.
-    preselection : string, keyword only, optional
-        The initial selection applied to the events immediately after the chain
-        is created. The default is no preselection.
+        The paths or urls of the ntuples.
+    selection : string, keyword only, optional
+        The selection applied to the events upon entering the context.
+        The default is no selection.
     ignore_branches : list of strings, keyword only, optional
-        The names of the branches to deactivate immediately after the
-        preselection has been applied to the events. The default is
-        to keep all branches active.
+        The names of the branches to deactivate upon entering the context,
+        after the initial selection has been applied. The default is to
+        keep all branches active.
+    download : bool, keyword only, optional
+        Copy remote files to a local temporary directory and open the copies
+        for reading instead. The default is to read remote files directly using
+        the XRootD protocol.
     """
     def __init__(self, *filenames, **kwargs):
-        self.preselection = kwargs.pop('preselection', None)
+        self.selection = kwargs.pop('selection', None)
         self.ignore_branches = kwargs.pop('ignore_branches', [])
+        self.download = kwargs.pop('download', False)
         if kwargs:
             raise TypeError('Unexpected keyword arguments: {!r}'.format(kwargs))
         super(Events, self).__init__('tree')
         self.filenames = filenames
-        self._count_histograms = self._get_count_histograms()
-        for filename in self.filenames:
+
+    def __enter__(self):
+        self._set_count_histogram_attributes()
+        filenames = self._download_files() if self.download else self.filenames
+        for filename in filenames:
             self.Add(filename)
-        if preselection:
-            self.select(preselection)
+        if self.selection:
+            self.select(self.selection)
         self.deactivate(*self.ignore_branches)
+        return self
+
+    def __exit__(self):
+        self._cleanup()
+        self.eventlist = 0
+        self.Reset()
 
     def __len__(self):
-        """The total number of events in the TChain.
-        """
+        """The total number of events."""
         return self.GetEntries()
 
-    def __repr__(self):
-        return '{0}(preselection={1!r}, event_weight={2!r}, ignore_branches={3!r})'.format(
-            self.__class__.__name__,
-            self.filenames,
-            self.preselection,
-            self.ignore_branches,
-        )
+    def _cleanup(self):
+        """Clean up any count histogram attributes and downloaded files."""
+        if self.download:
+            #shutil.rmtree(self._tmpdir)
+            del self._tmpdir
+        for hist in self._count_histograms:
+            delattr(self, hist.GetName())
+        del self._count_histograms
 
     def _create_eventlist(self, selection):
-        """Return the eventlist created by a selection.
-        """
+        """Return the eventlist created for a selection."""
         name = hashlib.md5(selection).hexdigest()
-        # Keep the Draw method from polluting the current gDirectory.
+        # Prevent the Draw method from modifying the current gDirectory.
         with thread_specific_tmprootdir() as d:
             self.draw('>>{0}'.format(name), selection)
             eventlist = d.GetName(name)
             return eventlist
 
-    def _get_count_histograms(self):
-        """Find any count histograms in the ntuples and set them as attributes.
-        """
-        count_histograms = []
-        # The histograms are summed over all files.
+    def _download_files(self):
+        """Download the files to a temporary directory and return their paths."""
+        self._tmpdir = tempfile.mkdtemp()
+        multixrdcp(*self.filenames, dst=self._tmpdir)
+        return sorted_glob('{0}/*'.format(self._tmpdir))
+
+    def _set_count_histogram_attributes(self):
+        """Set the count histograms as attributes accessible by their name."""
+        self._count_histograms = []
+        # Aggregate the count histograms across all files.
         with contextlib2.ExitStack() as stack:
             files = [stack.enter_context(root_open(filename)) for filename in self.filenames]
             for obj in files[0]:
@@ -75,13 +104,11 @@ class Events(ROOT.TChain):
                     hist.SetName(name)
                     hist.SetDirectory(0)
                     setattr(self, name, hist)
-                    count_histograms.append(hist)
-            return count_histograms
+                    self._count_histograms.append(hist)
 
     @property
     def branches(self):
-        """The branches in the TChain.
-        """
+        """The list of branches."""
         try:
             return list(self.GetListOfBranches())
         except TypeError:
@@ -89,8 +116,7 @@ class Events(ROOT.TChain):
 
     @property
     def eventlist(self):
-        """The eventlist for the TChain.
-        """
+        """The current eventlist."""
         return self.GetEventList()
 
     @eventlist.setter
@@ -98,7 +124,7 @@ class Events(ROOT.TChain):
         self.SetEventList(value)
 
     def activate(self, *branches, **kwargs):
-        """Activate branches in the TChain.
+        """Activate branches.
 
         Parameters
         ----------
@@ -121,7 +147,7 @@ class Events(ROOT.TChain):
             self.SetBranchStatus(branch, 1, found)
 
     def deactivate(self, *branches, **kwargs):
-        """Deactivate branches in the TChain.
+        """Deactivate branches.
 
         Parameters
         ----------
@@ -143,6 +169,14 @@ class Events(ROOT.TChain):
         for branch in branches:
             self.SetBranchStatus(branch, 0, found)
 
+    def count(self):
+        """Return the number of events that pass the selections applied."""
+        branch = self.branches[0].GetName()
+        with thread_specific_tmprootdir() as d:
+            self.draw('{0}=={0}>>count'.format(branch))
+            hist = d.Get('count')
+            return hist.Integral()
+
     def draw(self, expression, selection='', options='goff'):
         """A wrapper for the Draw method that accepts keyword arguments.
 
@@ -159,11 +193,24 @@ class Events(ROOT.TChain):
         """
         super(Events, self).Draw(expression, selection, options)
 
+    def iterselected(self):
+        """Yield the events that pass the selections applied."""
+        try:
+            passing = set(self.eventlist.GetEntry(i) for i in xrange(self.eventlist.GetN()))
+        except ReferenceError:
+            # If no selections are applied, yield all events.
+            for event in self:
+                yield event
+        else:
+            for i, event in enumerate(self):
+                if i in passing:
+                    yield event
+
     def select(self, selection):
         """Apply a selection on the events.
 
-        If selections are already applied, only the current subset of passing
-        events are considered.
+        If selections have already been applied, only the
+        current subset of passing events are considered.
 
         Parameters
         ----------
@@ -175,4 +222,31 @@ class Events(ROOT.TChain):
             if self.eventlist:
                 eventlist.Intersect(self.eventlist)
             self.eventlist = eventlist
+
+    def to_root(self, dst, optimize=False):
+        """Write the selected events and count histograms to a ROOT file.
+        
+        Parameters
+        ----------
+        dst : path
+            The path of the output ROOT file.
+        optimize : bool, optional
+            If True, optimize the storage of events in the output ROOT file.
+            The default is False.
+        """
+        with root_open(dst, 'w') as outfile:
+            for hist in self._count_histograms:
+                hist.Write()
+            if optimize:
+                with TemporaryFile() as tmp:
+                    tree_tmp = self.CopyTree('')
+                    tmp.Write()
+                    tmp.Flush()
+                    outfile.cd()
+                    tree_opt = tree_tmp.CloneTree(-1, 'fast SortBasketsByEntry')
+                    tree_opt.OptimizeBaskets()
+                    tree_opt.Write()
+            else:
+                tree_new = self.CopyTree('') if self.eventlist else self.CloneTree(-1, 'fast')
+                tree_new.Write()
 
