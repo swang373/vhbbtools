@@ -2,7 +2,7 @@
 import logging
 import sys
 
-from vhbbtools.utils import load_pkl
+from vhbbtools.htcondor.utils import load_pkl
 
 
 def main():

@@ -9,7 +9,8 @@ import appdirs
 import jinja2
 import pkg_resources
 
-from ..utils import safe_makedirs, save_pkl
+from ..utils import safe_makedirs
+from .utils import save_pkl
 
 
 LOGGER = logging.getLogger(__name__)
