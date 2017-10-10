@@ -41,6 +41,9 @@ contributors and provides links to their websites where possible.
     `Guido van Rossum <http://lucumr.pocoo.org/about/>`_ and the
     `Python Software Foundation <https://www.python.org/psf/>`_
 
+* `pythonfutures <https://github.com/agronholm/pythonfutures>`_
+    `Brian Quinlan <http://sweetapp.com/brian/resume.html>`_ and Alex Gronholm
+
 * `ROOT/PyROOT <https://root.cern.ch/>`_
     Rene Brun, Fons Rademakers, Wim Lavrijsen, and the ROOT team
 
