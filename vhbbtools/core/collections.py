@@ -1,13 +1,15 @@
 import copy
 import itertools
 
+from .dataset import Dataset
+
 
 class DuplicateDatasetError(Exception):
     pass
 
 
 class Process(object):
-    """A collection of Dataset objects representing a specific physics process.
+    """A collection of datasets representing a decay process.
 
     This can be used to group together Monte Carlo samples for a decay process
     which have been partitioned into kinetmatical bins, Monte Carlo samples
@@ -16,10 +18,11 @@ class Process(object):
     Parameters
     ----------
     *datasets : Dataset
-        The Dataset objects that represent the physics process.
+        The datasets that represent the decay process.
     """
     def __init__(self, *datasets):
-        # Check that the datasets are unique.
+        if any(not isinstance(dataset, Dataset) for dataset in dataset):
+            raise TypeError('Datasets must be instances of Dataset or a subclass of Dataset.')
         if len(datasets) != len(set(datasets)):
             raise DuplicateDatasetError('The datasets must be unique.')
         self._datasets = datasets
@@ -46,9 +49,8 @@ class Process(object):
         """
         datasets = copy.deepcopy(self._datasets)
         for dataset in datasets:
-            current_selection = dataset.selection
-            if current_selection:
-                dataset.selection = '({0})&&({1})'.format(current_selection, selection)
+            if dataset.selection:
+                dataset.selection = '({0})&&({1})'.format(dataset.selection, selection)
             else:
                 dataset.selection = selection
         return Process(*datasets)
