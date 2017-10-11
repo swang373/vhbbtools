@@ -7,25 +7,25 @@ class DuplicateDatasetError(Exception):
 
 
 class Process(object):
-    """A collection of datasets representing a specific physics process.
+    """A collection of Dataset objects representing a specific physics process.
 
-    This can be used to group together Monte-Carlo samples of a decay process
-    which have been partitioned into kinetmatical bins, Monte-Carlo samples
+    This can be used to group together Monte Carlo samples for a decay process
+    which have been partitioned into kinetmatical bins, Monte Carlo samples
     and their extensions, or official datasets for a given run period.
 
     Parameters
     ----------
-    *datasets : DatasetBase
-        The dataset instances to group together.
+    *datasets : Dataset
+        The Dataset objects that represent the physics process.
     """
     def __init__(self, *datasets):
         # Check that the datasets are unique.
-        if len(datasets) != len(set(datasets))
+        if len(datasets) != len(set(datasets)):
             raise DuplicateDatasetError('The datasets must be unique.')
         self._datasets = datasets
 
     def __iter__(self):
-        """Yield handles to each of the dataset's events."""
+        """Yield handles to the events from each of the datasets."""
         for dataset in self._datasets:
             for events in dataset:
                 yield events
@@ -41,11 +41,15 @@ class Process(object):
         Returns
         -------
         Process
-            A new Process which contains the same datasets but with the
-            additional selection applied to the datasets.
+            A new Process object containing the same datasets but with
+            the additional selection applied to the datasets.
         """
         datasets = copy.deepcopy(self._datasets)
         for dataset in datasets:
-            dataset.selection = '({0})&&({1})'.format(dataset.selection, selection)
+            current_selection = dataset.selection
+            if current_selection:
+                dataset.selection = '({0})&&({1})'.format(current_selection, selection)
+            else:
+                dataset.selection = selection
         return Process(*datasets)
 
