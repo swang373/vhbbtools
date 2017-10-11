@@ -142,6 +142,7 @@ class Dataset(object):
 
     @property
     def datatype(self):
+        """The datatype is "mc" for Monte Carlo and "data" for data."""
         return 'mc' if self.cross_section else 'data'
 
     @cached_property.cached_property
