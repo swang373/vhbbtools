@@ -22,7 +22,7 @@ from .core.xrdcp import xrdcp, multixrdcp
 
 __all__ = [
     # Core classes
-    'Dataset', 'Events',
+    'Process', 'Dataset', 'Events',
 
     # Utilities
     'xrdcp', 'multixrdcp',
