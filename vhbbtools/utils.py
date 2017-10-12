@@ -14,7 +14,6 @@ def safe_makedirs(path):
     ----------
     path : path
         The path of the created directory.
-
     """
     try:
         os.makedirs(path)

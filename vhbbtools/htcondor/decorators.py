@@ -30,7 +30,6 @@ def htcondorize(input_files=[], output_files=[]):
     -------
     HTCondorized
         The wrapped callable.
-
     """
     def wrapper(func):
         wrapped = HTCondorized(func, input_files, output_files)

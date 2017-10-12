@@ -16,7 +16,6 @@ def load_pkl(path):
     -------
     object
         The deserialized Python object.
-
     """
     _, ext = os.path.splitext(path)
     open_ = gzip.open if ext == '.pklz' else open
@@ -35,7 +34,6 @@ def save_pkl(path, obj):
         if the path ends with the .pklz file extension.
     obj : object
         The Python object to serialize.
-
     """
     _, ext = os.path.splitext(path)
     open_ = gzip.open if ext == '.pklz' else open

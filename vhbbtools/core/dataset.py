@@ -106,7 +106,7 @@ class Dataset(object):
         return hash(self.name)
 
     def __iter__(self):
-        """An iterator yielding handles to the dataset's events."""
+        """Yield handles to the dataset's events in chunks."""
         if self.files is None:
             if self.redirector is None:
                 raise DatasetError('A valid XRootD redirector url is required to access remote files.')

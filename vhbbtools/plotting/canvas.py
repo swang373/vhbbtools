@@ -71,16 +71,14 @@ class Canvas(_Canvas):
         self.margin = (left_margin, right_margin, bottom_margin, top_margin)
 
     def __enter__(self):
-        """Override the __enter__ method to set the TDR style.
-        """
+        """Override the __enter__ method to set the TDR style."""
         with contextlib2.ExitStack() as stack:
             stack.enter_context(TDRStyle())
             self.close = stack.pop_all().close
         return super(Canvas, self).__enter__()
 
     def __exit__(self, exception_type, exception_value, traceback):
-        """Override the __exit__ method to reset the style.
-        """
+        """Override the __exit__ method to reset the style."""
         super(Canvas, self).__exit__(exception_type, exception_value, traceback)
         self.close()
 

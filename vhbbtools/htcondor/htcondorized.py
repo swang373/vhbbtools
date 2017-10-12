@@ -36,7 +36,6 @@ class HTCondorized(object):
     output_files : list of paths, optional
         A list of paths to output files created by the callable. The default
         is no output files.
-
     """
     def __init__(self, func, input_files=[], output_files=[]):
         self.func = func
@@ -69,7 +68,6 @@ class HTCondorized(object):
             Any positional arguments accepted by the wrapped callable.
         **kwargs
             Any keyword arguments accepted by the wrapped callable.
-
         """
         self._jobs.append((args, kwargs))
 
@@ -103,7 +101,6 @@ class HTCondorized(object):
         no_submit : bool, optional
             If True, the job submission files are generated but not submitted
             to the HTCondor scheduler. The default is False.
-
         """
         # Create the directory tree for the job submission files.
         if not name:
@@ -155,7 +152,6 @@ class HTCondorized(object):
         -------
         int
             The number of jobs serialized.
-
         """
         number_of_jobs = len(self._jobs)
         for i, (args, kwargs) in enumerate(self._jobs):
@@ -185,7 +181,6 @@ class HTCondorized(object):
         context : dict
             The mapping between job submission arguments and environment
             variables to the names of their corresponding template variables.
-
         """
         template = self._templates.get_template(name)
         with open(path, 'w') as f:

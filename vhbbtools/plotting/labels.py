@@ -10,8 +10,7 @@ class LabelPositionError(Exception):
 
 
 class LabelBase(ROOT.TLatex):
-    """The base label class.
-    """
+    """The base label class."""
 
     # Tuples of horizontal and vertical text alignment names and
     # their corresponding ROOT text alignment integer values.
@@ -132,8 +131,7 @@ class CMSLabel(LabelBase):
         self.sublabel.padding_top = 1.2
 
     def _draw_label_left(self):
-        """Draw the label on the top left corner inside the frame and return its coordinates.
-        """
+        """Draw the label on the top left corner inside the frame and return its coordinates."""
         left_margin, right_margin, bottom_margin, top_margin = ROOT.gPad.margin
         self.size = self.scale * top_margin
         self.align = ('left', 'top')
@@ -143,8 +141,7 @@ class CMSLabel(LabelBase):
         return x, y
 
     def _draw_label_center(self):
-        """Draw the label on the top center inside the frame and return its coordinates.
-        """
+        """Draw the label on the top center inside the frame and return its coordinates."""
         left_margin, right_margin, bottom_margin, top_margin = ROOT.gPad.margin
         self.size = self.scale * top_margin
         self.align = ('center', 'top')
@@ -154,8 +151,7 @@ class CMSLabel(LabelBase):
         return x, y
 
     def _draw_label_right(self):
-        """Draw the label on the top right corner inside the frame and return its coordinates.
-        """
+        """Draw the label on the top right corner inside the frame and return its coordinates."""
         left_margin, right_margin, bottom_margin, top_margin = ROOT.gPad.margin
         self.size = self.scale * top_margin
         self.align = ('right', 'top')
@@ -165,8 +161,7 @@ class CMSLabel(LabelBase):
         return x, y
 
     def _draw_label_outside(self):
-        """Draw the label on the top left corner outside the frame and return its coordinates.
-        """
+        """Draw the label on the top left corner outside the frame and return its coordinates."""
         left_margin, _, _, top_margin = ROOT.gPad.margin
         self.size = self.scale * top_margin
         self.align = ('left', 'bottom')
@@ -176,8 +171,7 @@ class CMSLabel(LabelBase):
         return x, y
 
     def _draw_sublabel_inside(self, x_label, y_label):
-        """Draw the sublabel below the label inside the frame.
-        """
+        """Draw the sublabel below the label inside the frame."""
         self.sublabel.size = self.sublabel.scale * self.size
         self.sublabel.align = self.align
         x_sublabel = x_label
@@ -185,8 +179,7 @@ class CMSLabel(LabelBase):
         self.sublabel.DrawLatexNDC(x_sublabel, y_sublabel, self.sublabel.text)
 
     def _draw_sublabel_outside(self, x_label, y_label):
-        """Draw the sublabel to the right of the label outside the frame.
-        """
+        """Draw the sublabel to the right of the label outside the frame."""
         left_margin, right_margin, _, _ = ROOT.gPad.margin
         self.sublabel.size = self.sublabel.scale * self.size
         self.sublabel.align = self.align
@@ -195,8 +188,7 @@ class CMSLabel(LabelBase):
         self.sublabel.DrawLatexNDC(x_sublabel, y_sublabel, self.sublabel.text)
 
     def draw(self):
-        """Draw the CMS label and sublabel on the active canvas.
-        """
+        """Draw the CMS label and sublabel on the active canvas."""
         # Draw the label.
         if self.position == 'left':
             label_coordinates = self._draw_label_left()
@@ -253,8 +245,7 @@ class LuminosityLabel(LabelBase):
         self.padding_top = 0.8
 
     def draw(self):
-        """Draw the luminosity label on the active canvas.
-        """
+        """Draw the luminosity label on the active canvas."""
         _, right_margin, _, top_margin = ROOT.gPad.margin
         self.size = self.scale * top_margin
         x = 1 - right_margin
