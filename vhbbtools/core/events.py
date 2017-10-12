@@ -1,8 +1,8 @@
 import array
 import glob
-import hashlib
 import shutil
 import tempfile
+import uuid
 
 import contextlib2
 from rootpy import ROOT
@@ -45,7 +45,7 @@ class Events(ROOT.TChain):
         self.ignore_branches = kwargs.pop('ignore_branches', [])
         self.download = kwargs.pop('download', False)
         if kwargs:
-            raise TypeError('Unexpected keyword arguments: {!r}'.format(kwargs))
+            raise TypeError('Unexpected keyword arguments: {0!r}'.format(kwargs))
         super(Events, self).__init__('tree')
         self.filenames = filenames
 
@@ -85,7 +85,8 @@ class Events(ROOT.TChain):
 
     def _create_eventlist(self, selection):
         """Return the eventlist created for a selection."""
-        name = hashlib.md5(selection).hexdigest()
+        # The name must be unique to avoid a mysterious ROOT segfault.
+        name = uuid.uuid4().hex
         # Prevent the Draw method from modifying the current gDirectory.
         with thread_specific_tmprootdir() as d:
             self.draw('>>{0}'.format(name), selection)
@@ -180,10 +181,11 @@ class Events(ROOT.TChain):
 
     def count(self):
         """Return the number of events that pass the selections applied."""
+        name = uuid.uuid4().hex
         branch = self.branches[0].GetName()
         with thread_specific_tmprootdir() as d:
-            self.draw('{0}=={0}>>count'.format(branch))
-            hist = d.Get('count')
+            self.draw('{0}=={0}>>{1}'.format(branch, name))
+            hist = d.Get(name)
             return hist.Integral()
 
     def draw(self, expression, selection='', options='goff'):
