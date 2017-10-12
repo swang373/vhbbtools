@@ -19,6 +19,8 @@ deploy_cmssw() {
   scramv1 project CMSSW "$JOB_CMSSW_VERSION"
   cd "$JOB_CMSSW_VERSION/src"
   eval "$(scramv1 runtime -sh)"
+  # Setup the CRAB3 environment.
+  source /cvmfs/cms.cern.ch/crab3/crab.sh
   # Change back to the worker node's scratch directory.
   cd "$_CONDOR_SCRATCH_DIR"
 }
